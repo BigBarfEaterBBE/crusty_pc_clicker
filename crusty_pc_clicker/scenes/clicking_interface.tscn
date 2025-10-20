@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://c83ym4t8sax0c"]
+
+[ext_resource type="Texture2D" uid="uid://cyxdtoi3wb2ts" path="res://icon.svg" id="1_cl88x"]
+
+[node name="clicking_interface" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="click_area" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="MarginContainer" type="MarginContainer" parent="click_area"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -91.0
+offset_right = 175.0
+offset_bottom = -1.0
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="click_area/MarginContainer"]
+layout_mode = 2
+text = "SHOP"
+
+[node name="Button" type="Button" parent="click_area"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.0
+offset_top = -68.0
+offset_right = 68.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("1_cl88x")
+
+[node name="sidebar" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
