@@ -9,10 +9,15 @@ var money_label:Label = null
 var passive_label:Label = null
 var mpc_label:Label = null
 @onready var passive_timer = $Timer
+@onready var shop_panel = $ShopPanel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_stats_ui()
+	
+	if shop_panel != null:
+		shop_panel.visible = false # Hides the panel immediately
+		print("Shop Panel found and set to invisible.")
 	
 	passive_timer.wait_time = 1.0
 	passive_timer.autostart = true
@@ -26,9 +31,14 @@ func set_ui_references(ui_nodes: Dictionary):
 	mpc_label = ui_nodes.get("mpc_label")
 	_update_stats_ui()
 
+
+func toggle_shop_visibility():
+	if shop_panel != null:
+		shop_panel.visible = !shop_panel.visible
+
 func _update_stats_ui():
 	if money_label != null:
-		money_label.text = "MONEY: %s$" % [round(current_money*100.0) / 100.0]
+		money_label.text = "MONEY: %0.2f$" % current_money
 	if passive_label != null:
 		passive_label.text = "PASSIVE INCOME: +%s/s" % [passive_income]
 	if mpc_label != null:
@@ -41,4 +51,3 @@ func area_clicked():
 func _on_passive_timer_timeout():
 	current_money += passive_income
 	_update_stats_ui()
-	
