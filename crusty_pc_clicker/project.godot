@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="crusty_pc_clicker"
-run/main_scene="uid://dfmc8wcxoocjf"
+run/main_scene="uid://dpjl52uxetnif"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*res://scenes/game.tscn"
+GameManager="*res://scenes/game_manager.tscn"
 
 [editor_plugins]
 

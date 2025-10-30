@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpjl52uxetnif"]
+
+[ext_resource type="PackedScene" uid="uid://c83ym4t8sax0c" path="res://scenes/clicking_interface.tscn" id="1_s3esy"]
+
+[node name="main_game" type="Node2D"]
+
+[node name="clicking_interface" parent="." instance=ExtResource("1_s3esy")]
+offset_right = 1150.0
+offset_bottom = 650.0

@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfmc8wcxoocjf"]
+
+[ext_resource type="Script" uid="uid://dupsalskiisgi" path="res://scripts/game_manager.gd" id="1_hwd4i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqjtg"]
+bg_color = Color(0.808367, 0.514524, 0.419971, 1)
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_hwd4i")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="ShopCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ShopPanel" type="Panel" parent="ShopCanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -225.0
+offset_right = 350.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yqjtg")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ShopCanvasLayer/ShopPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopCanvasLayer/ShopPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShopCanvasLayer/ShopPanel/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 150
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ShopCanvasLayer/ShopPanel/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="ShopCanvasLayer/ShopPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_bottom = 50.0
+grow_horizontal = 0
+text = "X"
+
+[connection signal="pressed" from="ShopCanvasLayer/ShopPanel/Button" to="." method="shop_exit_button_pressed"]

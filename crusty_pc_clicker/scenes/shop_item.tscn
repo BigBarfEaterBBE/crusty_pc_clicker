@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd4iyhch4m7v8"]
+
+[ext_resource type="Script" uid="uid://sx7yfya2wnab" path="res://scripts/shop_item.gd" id="1_btjjm"]
+[ext_resource type="Texture2D" uid="uid://cyxdtoi3wb2ts" path="res://icon.svg" id="1_lrx6i"]
+
+[node name="ShopItem" type="Panel"]
+offset_right = 348.0
+offset_bottom = 150.0
+script = ExtResource("1_btjjm")
+
+[node name="ItemImage" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 13.0
+offset_top = 11.0
+offset_right = 143.0
+offset_bottom = 141.0
+texture = ExtResource("1_lrx6i")
+
+[node name="ItemPrice" type="Label" parent="."]
+layout_mode = 0
+offset_left = 295.0
+offset_top = 86.0
+offset_right = 331.0
+offset_bottom = 109.0
+text = "$X"
+
+[node name="BuyButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 295.0
+offset_top = 110.0
+offset_right = 335.0
+offset_bottom = 141.0
+text = "BUY"
+
+[node name="ItemName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 11.0
+offset_right = 232.0
+offset_bottom = 34.0
+text = "Item Name"
+
+[node name="ItemDescription" type="Label" parent="."]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 37.0
+offset_right = 290.0
+offset_bottom = 139.0
+theme_override_font_sizes/font_size = 0
+autowrap_mode = 2
