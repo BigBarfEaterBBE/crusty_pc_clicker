@@ -58,4 +58,5 @@ offset_bottom = 50.0
 grow_horizontal = 0
 text = "X"
 
+[connection signal="timeout" from="Timer" to="." method="_on_passive_timer_timeout"]
 [connection signal="pressed" from="ShopCanvasLayer/ShopPanel/Button" to="." method="shop_exit_button_pressed"]

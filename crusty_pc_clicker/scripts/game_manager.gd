@@ -1,7 +1,7 @@
 extends Node
 
 #STATS
-var current_money:float = 0.0
+var current_money:float = 500.0
 var money_per_click:float = 1.0
 var passive_income:float = 0.0
 
@@ -32,10 +32,10 @@ func _ready() -> void:
 	_populate_shop()
 	
 	passive_timer.wait_time = 1.0
-	passive_timer.autostart = true
 	
 	if not passive_timer.is_connected("timeout",Callable(self, "_on_passive_timer_timeout")):
-		passive_timer.connect("timeout", Callable(self, "_on_passive_timer_timeout"))
+		passive_timer.timeout.connect(Callable(self, "_on_passive_timer_timeout"))
+	passive_timer.start()
 
 func _create_shop_item(id: String, name: String, price: float, description: String) -> Panel:
 	var item = SHOP_ITEM_SCENE.instantiate()
