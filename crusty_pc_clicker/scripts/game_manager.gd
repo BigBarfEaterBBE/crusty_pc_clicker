@@ -4,10 +4,12 @@ extends Node
 var current_money:float = 500.0
 var money_per_click:float = 1.0
 var passive_income:float = 0.0
+var item_counts: Dictionary = {}
 
 var money_label:Label = null
 var passive_label:Label = null
 var mpc_label:Label = null
+var item_log_label: Label = null
 @onready var passive_timer = $Timer
 @onready var shop_canvas_layer = $ShopCanvasLayer
 @onready var shop_panel = $ShopCanvasLayer/ShopPanel
@@ -17,9 +19,9 @@ var mpc_label:Label = null
 const SHOP_ITEM_SCENE = preload("res://scenes/shop_item.tscn")
 
 const ITEM_EFFECTS = {
-	"passive_income_1":{"type":"passive", "value":3.0},
-	"mpc_1":{"type":"mpc","value":1.0},
-	"mpc_2":{"type":"mpc","value":5.0}
+	"mpc_1":{"type":"passive", "value":3.0, "price":10.0, "name": "Bum Ram"},
+	"mpc_2":{"type":"mpc","value":1.0, "price":50.0, "name": "New Ram"},
+	"passive_1":{"type":"mpc","value":5.0, "price":350.0, "name": "Channel Ads"}
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -48,13 +50,14 @@ func _create_shop_item(id: String, name: String, price: float, description: Stri
 func _populate_shop():
 	if left_column == null or right_column == null:
 		return
-	left_column.add_child(_create_shop_item("mpc_1", "Bum Ram", 10.0, "Adds +1 money per click"))
-	left_column.add_child(_create_shop_item("mpc_2", "New Ram", 50.0, "Adds +5 money per click."))
-	right_column.add_child(_create_shop_item("passive_income_1", "Ads", 350.0, "Adds +3 passive income/sec"))
+	left_column.add_child(_create_shop_item("Bum Ram", "Bum Ram", 10.0, "Adds +1 money per click"))
+	left_column.add_child(_create_shop_item("New Ram", "New Ram", 50.0, "Adds +5 money per click."))
+	right_column.add_child(_create_shop_item("Channel Ads", "Ads", 350.0, "Adds +3 passive income/sec"))
 func set_ui_references(ui_nodes: Dictionary):
 	money_label = ui_nodes.get("money_label")
 	passive_label = ui_nodes.get("passive_label")
 	mpc_label = ui_nodes.get("mpc_label")
+	item_log_label = ui_nodes.get("item_log_label")
 	_update_stats_ui()
 
 
@@ -66,6 +69,29 @@ func toggle_shop_visibility():
 		else:
 			shop_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
+func add_item_purchase(id: String):
+	item_counts[id] = item_counts.get(id,0) + 1
+	_update_item_log()
+
+func _update_item_log():
+	var items = []
+	var log_text: String
+	for id in ITEM_EFFECTS.keys():
+		var item_data = ITEM_EFFECTS[id]
+		items.append({
+			"id": id,
+			"name": item_data.name,
+			"price":item_data.price
+		})
+		for item in items:
+			id = item.id
+			var item_name = item.name
+			var count = item_counts.get(id,0)
+			log_text += "%s: x%d\n" % [item_name, count]
+		item_log_label.text = log_text
+			
+	
+
 func _update_stats_ui():
 	if money_label != null:
 		money_label.text = "MONEY: %0.2f$" % current_money
@@ -73,6 +99,7 @@ func _update_stats_ui():
 		passive_label.text = "PASSIVE INCOME: +%s/s" % [passive_income]
 	if mpc_label != null:
 		mpc_label.text = "MONEY PER CLICK: +%s" % [money_per_click]
+		_update_item_log()
 
 func area_clicked():
 	current_money += money_per_click

@@ -138,5 +138,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.470588, 0.270588, 0, 1)
 
+[node name="LogLabel" type="Label" parent="HBoxContainer/sidebar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "test
+awdawd"
+
 [connection signal="pressed" from="HBoxContainer/click_area/MarginContainer/Button" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/click_area/Button" to="." method="_on_click_area_pressed"]

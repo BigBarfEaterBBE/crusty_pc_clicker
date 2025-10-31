@@ -27,5 +27,6 @@ func _on_buy_button_pressed():
 			GameManager.passive_income += value
 		elif effect_type == "mpc":
 			GameManager.money_per_click += value
+		GameManager.add_item_purchase(item_id)
 		GameManager._update_stats_ui()
 		
