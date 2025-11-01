@@ -16,6 +16,12 @@ var item_log_label: Label = null
 @onready var left_column = $ShopCanvasLayer/ShopPanel/ScrollContainer/HBoxContainer/VBoxContainer
 @onready var right_column = $ShopCanvasLayer/ShopPanel/ScrollContainer/HBoxContainer/VBoxContainer2
 
+
+@onready var admin_canvas_layer = $AdminCanvasLayer
+@onready var admin_panel = $AdminCanvasLayer/AdminPanel
+@onready var add_money_input = $AdminCanvasLayer/AdminPanel/AmountInput
+
+
 const SHOP_ITEM_SCENE = preload("res://scenes/shop_item.tscn")
 
 const ITEM_EFFECTS = {
@@ -34,6 +40,9 @@ func _ready() -> void:
 	if shop_canvas_layer != null and shop_panel!= null:
 		shop_canvas_layer.visible = false
 		shop_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if admin_canvas_layer != null and admin_panel != null:
+		admin_canvas_layer.visible = false
+		admin_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_populate_shop()
 	
 	passive_timer.wait_time = 1.0
@@ -72,6 +81,14 @@ func toggle_shop_visibility():
 		else:
 			shop_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
+func toggle_admin_visibility():
+	if admin_canvas_layer != null and admin_panel != null:
+		admin_canvas_layer.visible = !admin_canvas_layer.visible
+		if admin_canvas_layer.visible:
+			admin_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+		else:
+			admin_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
 func add_item_purchase(id: String):
 	item_counts[id] = item_counts.get(id,0) + 1
 	_update_item_log()
@@ -107,6 +124,19 @@ func _update_item_log():
 	item_log_label.text = log_text
 	
 
+func _on_add_money_button_pressed():
+	if add_money_input == null:
+		return
+	var input_text = add_money_input.text
+	var amount:float = float(input_text)
+	if amount > 0.0:
+		current_money += amount
+		_update_stats_ui()
+		add_money_input.text = ""
+	else:
+		add_money_input.text = ""
+		return
+
 func _update_stats_ui():
 	if money_label != null:
 		money_label.text = "MONEY: %0.2f$" % current_money
@@ -126,3 +156,6 @@ func _on_passive_timer_timeout():
 
 func shop_exit_button_pressed():
 	toggle_shop_visibility()
+
+func admin_exit_button_pressed():
+	toggle_admin_visibility()

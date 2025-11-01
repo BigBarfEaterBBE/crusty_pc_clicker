@@ -17,3 +17,5 @@ func _on_click_area_pressed():
 	GameManager.area_clicked()
 func _on_shop_button_pressed():
 	GameManager.toggle_shop_visibility()
+func _on_admin_button_pressed():
+	GameManager.toggle_admin_visibility()

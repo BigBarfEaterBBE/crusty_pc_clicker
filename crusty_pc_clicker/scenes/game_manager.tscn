@@ -1,9 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfmc8wcxoocjf"]
+[gd_scene load_steps=4 format=3 uid="uid://dfmc8wcxoocjf"]
 
 [ext_resource type="Script" uid="uid://dupsalskiisgi" path="res://scripts/game_manager.gd" id="1_hwd4i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqjtg"]
 bg_color = Color(0.808367, 0.514524, 0.419971, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hwd4i"]
+bg_color = Color(0.381717, 0.642465, 0.737079, 1)
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_hwd4i")
@@ -58,5 +61,50 @@ offset_bottom = 50.0
 grow_horizontal = 0
 text = "X"
 
+[node name="AdminCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AdminPanel" type="Panel" parent="AdminCanvasLayer"]
+offset_left = 226.0
+offset_top = 90.0
+offset_right = 926.0
+offset_bottom = 540.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hwd4i")
+
+[node name="Button" type="Button" parent="AdminCanvasLayer/AdminPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_bottom = 50.0
+grow_horizontal = 0
+text = "X"
+
+[node name="Label" type="Label" parent="AdminCanvasLayer/AdminPanel"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 10.0
+offset_right = 91.0
+offset_bottom = 33.0
+text = "Add Money"
+
+[node name="AmountInput" type="LineEdit" parent="AdminCanvasLayer/AdminPanel"]
+layout_mode = 2
+offset_left = -1.0
+offset_top = 37.0
+offset_right = 161.0
+offset_bottom = 68.0
+placeholder_text = "Amount"
+
+[node name="AddMoneyButton" type="Button" parent="AdminCanvasLayer/AdminPanel"]
+layout_mode = 2
+offset_left = 174.0
+offset_top = 38.0
+offset_right = 238.0
+offset_bottom = 69.0
+text = "Add"
+
 [connection signal="timeout" from="Timer" to="." method="_on_passive_timer_timeout"]
 [connection signal="pressed" from="ShopCanvasLayer/ShopPanel/Button" to="." method="shop_exit_button_pressed"]
+[connection signal="pressed" from="AdminCanvasLayer/AdminPanel/Button" to="." method="admin_exit_button_pressed"]
+[connection signal="pressed" from="AdminCanvasLayer/AdminPanel/AddMoneyButton" to="." method="_on_add_money_button_pressed"]

@@ -1,27 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c83ym4t8sax0c"]
+[gd_scene load_steps=3 format=3 uid="uid://c83ym4t8sax0c"]
 
 [ext_resource type="Script" uid="uid://dp12qvdchx1q6" path="res://scripts/clicking_interface.gd" id="1_7t30x"]
 [ext_resource type="Texture2D" uid="uid://cyxdtoi3wb2ts" path="res://icon.svg" id="1_cl88x"]
-
-[sub_resource type="GDScript" id="GDScript_y4hy6"]
-script/source = "extends Button
-
-var count = 0
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func _on_pressed() -> int:
-	count += 1
-	return count # Replace with function body.
-"
 
 [node name="clicking_interface" type="VBoxContainer"]
 anchors_preset = 15
@@ -83,6 +63,22 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/click_area"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -175.0
+offset_top = -90.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="HBoxContainer/click_area/MarginContainer2"]
+layout_mode = 2
+text = "Admin Panel"
+
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/click_area"]
 layout_mode = 1
 anchors_preset = 2
@@ -96,7 +92,6 @@ grow_vertical = 0
 [node name="Button" type="Button" parent="HBoxContainer/click_area/MarginContainer"]
 layout_mode = 2
 text = "SHOP"
-script = SubResource("GDScript_y4hy6")
 
 [node name="Button" type="Button" parent="HBoxContainer/click_area"]
 layout_mode = 1
@@ -148,5 +143,6 @@ grow_vertical = 2
 text = "test
 awdawd"
 
+[connection signal="pressed" from="HBoxContainer/click_area/MarginContainer2/Button" to="." method="_on_admin_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/click_area/MarginContainer/Button" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/click_area/Button" to="." method="_on_click_area_pressed"]
