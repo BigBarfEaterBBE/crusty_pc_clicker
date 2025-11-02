@@ -86,7 +86,7 @@ offset_left = 3.0
 offset_top = 10.0
 offset_right = 91.0
 offset_bottom = 33.0
-text = "Add Money"
+text = "Add Viewers"
 
 [node name="AmountInput" type="LineEdit" parent="AdminCanvasLayer/AdminPanel"]
 layout_mode = 2
@@ -104,7 +104,11 @@ offset_right = 238.0
 offset_bottom = 69.0
 text = "Add"
 
+[node name="RaidDurationTimer" type="Timer" parent="."]
+
+[node name="RaidTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="_on_passive_timer_timeout"]
 [connection signal="pressed" from="ShopCanvasLayer/ShopPanel/Button" to="." method="shop_exit_button_pressed"]
 [connection signal="pressed" from="AdminCanvasLayer/AdminPanel/Button" to="." method="admin_exit_button_pressed"]
-[connection signal="pressed" from="AdminCanvasLayer/AdminPanel/AddMoneyButton" to="." method="_on_add_money_button_pressed"]
+[connection signal="pressed" from="AdminCanvasLayer/AdminPanel/AddMoneyButton" to="." method="_on_add_viewer_button_pressed"]

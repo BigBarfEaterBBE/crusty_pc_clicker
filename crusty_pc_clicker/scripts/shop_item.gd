@@ -18,15 +18,15 @@ func _ready():
 	buy_button.pressed.connect(Callable(self, "_on_buy_button_pressed"))
 
 func _on_buy_button_pressed():
-	if GameManager.current_money >= item_price:
-		GameManager.current_money -= item_price
+	if GameManager.current_viewers >= item_price:
+		GameManager.current_viewers -= item_price
 		var effect_data: Dictionary = GameManager.ITEM_EFFECTS[item_id]
 		var effect_type: String = effect_data.type
 		var value:float = effect_data.value
 		if effect_type == 'passive':
-			GameManager.passive_income += value
+			GameManager.passive_viewers += value
 		elif effect_type == "mpc":
-			GameManager.money_per_click += value
+			GameManager.viewers_per_click += value
 		GameManager.add_item_purchase(item_id)
 		GameManager._update_stats_ui()
 		

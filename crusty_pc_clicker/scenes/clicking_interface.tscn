@@ -30,7 +30,7 @@ color = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(1150, 0)
 layout_mode = 2
 
-[node name="current_money" type="Label" parent="stats_bar/MarginContainer/HBoxContainer"]
+[node name="current_viewers" type="Label" parent="stats_bar/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Current money:	"
 vertical_alignment = 1
@@ -39,7 +39,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="passive_income" type="Label" parent="stats_bar/MarginContainer/HBoxContainer"]
+[node name="passive_viewers" type="Label" parent="stats_bar/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Passive income:	"
 horizontal_alignment = 1
@@ -48,7 +48,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="money_per_click" type="Label" parent="stats_bar/MarginContainer/HBoxContainer"]
+[node name="viewers_per_click" type="Label" parent="stats_bar/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Money per click:	"
 vertical_alignment = 1
