@@ -1,5 +1,5 @@
 extends Node
-
+# NEED TO FULLY BUILD OUT RAID EVENT = HANDLE CASE WHERE USER BUYS ITEM DURING RAID + ADD TRIGGER RAID TO ADMIN
 #STATS
 var current_viewers:float = 500.0
 var viewers_per_click:float = 1.0
@@ -30,9 +30,9 @@ var item_log_label: Label = null
 const SHOP_ITEM_SCENE = preload("res://scenes/shop_item.tscn")
 
 const ITEM_EFFECTS = {
-	"vpc_1":{"type":"vpc", "value":3.0, "price":10.0, "name": "Bum Ram"},
-	"vpc_2":{"type":"vpc","value":1.0, "price":50.0, "name": "New Ram"},
-	"passive_1":{"type":"passive","value":5.0, "price":350.0, "name": "Channel Ads"}
+	"vpc_1":{"type":"vpc", "value":3.0, "price":10.0, "name": "Bum Ram", "description": "Adds +1 subscriber per click."},
+	"vpc_2":{"type":"vpc","value":1.0, "price":50.0, "name": "New Ram", "description": "Adds +3 subscribers per click"},
+	"passive_1":{"type":"passive","value":5.0, "price":350.0, "name": "Channel Ads", "description": "Adds +5 subscribers/sec"}
 }
 #format of:Streamer: {boost factor, probability}
 const STREAMERS = {
@@ -83,9 +83,12 @@ func _create_shop_item(id: String, name: String, price: float, description: Stri
 func _populate_shop():
 	if left_column == null or right_column == null:
 		return
-	left_column.add_child(_create_shop_item("vpc_1", ITEM_EFFECTS["vpc_1"].name, ITEM_EFFECTS["vpc_1"].price, "Adds +3 subscribers per click"))
-	left_column.add_child(_create_shop_item("vpc_2", ITEM_EFFECTS["vpc_2"].name, ITEM_EFFECTS["vpc_2"].price, "Adds +1 subscriber per click."))
-	right_column.add_child(_create_shop_item("passive_1", ITEM_EFFECTS["passive_1"].name, ITEM_EFFECTS["passive_1"].price, "Adds +5 subscribers/sec"))
+	for item in ITEM_EFFECTS.keys():
+		var item_data = ITEM_EFFECTS[item]
+		if item_data.type == "vpc":
+			left_column.add_child(_create_shop_item(item, item_data.name, item_data.price, item_data.description))
+		elif item_data.type == "passive":
+			right_column.add_child(_create_shop_item(item, item_data.name, item_data.price, item_data.description))
 func set_ui_references(ui_nodes: Dictionary):
 	viewer_label = ui_nodes.get("viewer_label")
 	passive_label = ui_nodes.get("passive_label")
@@ -202,7 +205,7 @@ func _on_raid_timer_timeout():
 	base_vpc = viewers_per_click
 	base_passive_viewers = passive_viewers
 	is_raided = true
-	print("You were raided by %s! (Boost Factor: %0.2f)") % [current_raid_name, boost_factor]
+	'''print("You were raided by %s! (Boost Factor: %0.2f)") % [current_raid_name, boost_factor]'''
 	if raid_duration_timer != null:
 		raid_duration_timer.wait_time = raid_duration
 		if not raid_duration_timer.timeout.is_connected(Callable(self, "_on_raid_duration_timer_timeout")):
